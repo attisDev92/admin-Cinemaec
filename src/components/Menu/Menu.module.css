@@ -1,0 +1,22 @@
+.menu__bar {
+  position: fixed;
+  top: 3rem;
+  left: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+  width: 15rem;
+  height: 100%;
+  padding: 2rem 1rem;
+  display: flex;
+  border: 2px solid var(--color-gray);
+}
+
+.menu__bar a {
+  text-decoration: none;
+}
+
+.logout__button {
+  position: absolute;
+  bottom: 2;
+}

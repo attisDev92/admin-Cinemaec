@@ -1,0 +1,8 @@
+.body__container {
+  position: absolute;
+  margin-top: 4rem;
+  margin-left: 15rem;
+  height: fit-content;
+  width: -webkit-fill-available;
+  padding: 3rem;
+}

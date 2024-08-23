@@ -1,0 +1,30 @@
+.Login {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 2rem;
+  justify-content: space-evenly;
+  padding: 2rem;
+  align-items: center;
+}
+
+.Login div {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.Login h2 {
+  text-align: center;
+  width: 100%;
+  padding: 0;
+}
+
+.Login img {
+  width: 6rem;
+}
+
+.Login form {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+}

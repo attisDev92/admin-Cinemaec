@@ -1,0 +1,19 @@
+.Header {
+  position: fixed;
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  height: 4rem;
+  gap: 1rem;
+  justify-content: end;
+  align-items: center;
+  padding-inline: 2rem;
+  background-color: var(--color-primary);
+  z-index: 50;
+}
+
+.Header img {
+  height: 2rem;
+  width: auto;
+  filter: grayscale(1) brightness(5);
+}

@@ -1,7 +1,7 @@
 import { Button, TextField } from '@mui/material'
 import { useField } from '../../hooks/useField'
 import { useState } from 'react'
-import styles from './Movies.module.css'
+import styles from './MoviesForm.module.css'
 import AddInputForm from './components/AddInputForm'
 import SelectInputForm from './components/SelectInputForm'
 import DateInput from './components/DateInput'
@@ -80,11 +80,13 @@ const MoviesForm = () => {
       stills,
     }
 
-    dispatch(createNewMovie(newMovie)).then(() => {
-      setIsLoader(false)
-      window.alert('Se creo una nueva película')
-      navigate('/movies/list')
-    })
+    dispatch(createNewMovie(newMovie))
+      .then(() => {
+        setIsLoader(false)
+        window.alert('Se creo una nueva película')
+        navigate('/movies/list')
+      })
+      .cathc()
   }
 
   return (
@@ -115,6 +117,8 @@ const MoviesForm = () => {
             required
             {...director.input}
           />
+        </fieldset>
+        <fieldset>
           <AddInputForm
             name='screenplayers'
             placeholder='Agregar guionista'
@@ -129,8 +133,8 @@ const MoviesForm = () => {
             label='Storyline'
             variant='standard'
             required
-            inputProps={{ maxLength: 100, minLength: 40 }}
-            helperText={`${storyLine.input.value.length}/ min${40}, max${100}`}
+            inputProps={{ maxLength: 150, minLength: 40 }}
+            helperText={`${storyLine.input.value.length}/ min${40}, max${150}`}
             multiline
             rows={4}
             fullWidth
@@ -316,14 +320,16 @@ const MoviesForm = () => {
           />
         </fieldset>
         <p>Link del trailer o teaser de la obra:</p>
-        <TextField
-          id='trailer'
-          label='Link de Trailer'
-          variant='standard'
-          required
-          inputProps={{ minLength: 5 }}
-          {...trailer.input}
-        />
+        <fieldset>
+          <TextField
+            id='trailer'
+            label='Link de Trailer'
+            variant='standard'
+            required
+            inputProps={{ minLength: 5 }}
+            {...trailer.input}
+          />
+        </fieldset>
         <p>Subir afiche y hasta 5 fotogramas (máximo 5mb por archivo):</p>
         <fieldset>
           <UploadFile

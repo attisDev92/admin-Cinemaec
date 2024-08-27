@@ -1,14 +1,18 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { DataGrid, GridToolbar, GridActionsCellItem } from '@mui/x-data-grid'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import EditNoteIcon from '@mui/icons-material/EditNote'
 import PreviewIcon from '@mui/icons-material/Preview'
+import { deleteMovie } from '../../redux/moviesReducer'
+import { useNavigate } from 'react-router-dom'
 
 const MoviesList = () => {
   const movies = useSelector(state => state.movies)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleView = id => {
-    console.log('view', id)
+    navigate(`/movies/${id}`)
   }
 
   const handleEdit = id => {
@@ -16,8 +20,9 @@ const MoviesList = () => {
   }
 
   const handleDelete = id => {
-    console.log('delete', id)
+    dispatch(deleteMovie(id))
   }
+
   const columns = [
     { field: 'title', headerName: 'Nombre', width: 160 },
     { field: 'director', headerName: 'Director', width: 130 },

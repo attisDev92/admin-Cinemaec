@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { setNotification } from './notificationReducer'
-import { createMovie, getAllMovies } from '../services/movies'
+import { createMovie, destroyMovie, getAllMovies } from '../services/movies'
 
 const moviesSlice = createSlice({
   name: 'movies',
@@ -12,10 +12,14 @@ const moviesSlice = createSlice({
     addNewMovie(state, action) {
       state.push(action.payload)
     },
+    removeMovie(state, action) {
+      const id = action.payload
+      state.filter(movie => movie.id !== id)
+    },
   },
 })
 
-export const { initMovies, addNewMovie } = moviesSlice.actions
+export const { initMovies, addNewMovie, removeMovie } = moviesSlice.actions
 
 export const getInitialMovies = () => {
   return async dispatch => {
@@ -54,13 +58,35 @@ export const createNewMovie = newMovie => {
       }
 
       const response = await createMovie(formData)
-      console.log(response)
       dispatch(addNewMovie(response))
     } catch (error) {
       console.error(error)
       dispatch(
         setNotification({
           message: 'error al crear una nueva película',
+          style: 'error',
+        }),
+      )
+    }
+  }
+}
+
+export const deleteMovie = id => {
+  return async dispatch => {
+    try {
+      const response = await destroyMovie(id)
+      console.log(response)
+      dispatch(removeMovie(id))
+      dispatch(
+        setNotification({
+          message: 'La película ha sido eliminada',
+          style: 'warn',
+        }),
+      )
+    } catch (error) {
+      dispatch(
+        setNotification({
+          message: 'Error al eliminar la película',
           style: 'error',
         }),
       )

@@ -35,8 +35,9 @@ const AddInputForm = ({ name, placeholder, nameList, inputs, setInputs }) => {
       <Button onClick={addValue} variant='outlined'>
         Agregar
       </Button>
+
+      <p>{nameList}:</p>
       <ul>
-        <p>{nameList}:</p>
         {inputs.map((input, i) => (
           <li
             key={i + 1}

@@ -1,8 +1,9 @@
 .body__container {
   position: absolute;
-  margin-top: 4rem;
-  margin-left: 15rem;
+  top: 4rem;
+  left: 15rem;
+  margin: 0 10%;
   height: fit-content;
   width: -webkit-fill-available;
-  padding: 3rem;
+  padding-block: 3rem;
 }

@@ -1,0 +1,95 @@
+{
+  "admins": [
+    {
+      "id": "66bbc5aa53778c21f1309e89",
+      "username": "admin",
+      "password": "admin",
+      "__v": 0
+    }
+  ],
+  "movies": [
+    {
+      "id": "66c8f6062c0a3e0f42a3ed03",
+      "title": "Pelicula 1000",
+      "director": "Attis",
+      "screenPlayers": [],
+      "poster": "https://firebasestorage.googleapis.com/v0/b/cinemaec-fc79d.appspot.com/o/cinemaec%2FPelicula_1000%2F1724446212274_poster.jpg?alt=media&token=5aefb745-57d9-4326-9478-538395c79243",
+      "stills": [
+        "https://firebasestorage.googleapis.com/v0/b/cinemaec-fc79d.appspot.com/o/cinemaec%2FPelicula_1000%2F1724446212277_stills.jpg?alt=media&token=9a590338-a013-4396-aa90-4e6a7f73ace2",
+        "https://firebasestorage.googleapis.com/v0/b/cinemaec-fc79d.appspot.com/o/cinemaec%2FPelicula_1000%2F1724446212277_stills.jpg?alt=media&token=cbc8397c-d68a-415d-836f-b212dd93886b",
+        "https://firebasestorage.googleapis.com/v0/b/cinemaec-fc79d.appspot.com/o/cinemaec%2FPelicula_1000%2F1724446212277_stills.jpg?alt=media&token=cbc8397c-d68a-415d-836f-b212dd93886b"
+      ],
+      "storyLine": "sdasdasdasdasdasdasdasdasdasdadasdasdsadsa",
+      "sinopsis": "sdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasda",
+      "trailer": "wwww.como.com",
+      "feactureFilm": "Largometraje",
+      "time": 90,
+      "genre": ["Comedia"],
+      "year": 2020,
+      "country": "Ecuador",
+      "language": ["Español"],
+      "subtitles": [],
+      "target": "Todo público",
+      "animation": false,
+      "festivals": [],
+      "awards": [],
+      "reaInformation": {
+        "available": false,
+        "expiration": "2024-08-23T20:46:48.926Z",
+        "territoryLicense": []
+      },
+      "channels": [],
+      "contact": {
+        "name": "Attis",
+        "phone": "09876545",
+        "mail": "asasdasdad@gmail.com"
+      },
+      "created": "2024-08-23T20:28:23.179Z",
+      "__v": 0
+    },
+    {
+      "id": "66c8f0b6dc1f6aeac4342881",
+      "title": "Pelicula 10",
+      "director": "Attis",
+      "screenPlayers": [],
+      "poster": "https://firebasestorage.googleapis.com/v0/b/cinemaec-fc79d.appspot.com/o/cinemaec%2FPelicula_10%2F1724444852819_poster.jpg?alt=media&token=6142f3c6-9230-4384-900c-ada492407583",
+      "stills": [
+        "https://firebasestorage.googleapis.com/v0/b/cinemaec-fc79d.appspot.com/o/cinemaec%2FPelicula_10%2F1724444852822_stills.jpg?alt=media&token=1c1edf3c-b6d0-46ee-a4cb-7fb305215e79",
+        "https://firebasestorage.googleapis.com/v0/b/cinemaec-fc79d.appspot.com/o/cinemaec%2FPelicula_10%2F1724444852821_stills.jpg?alt=media&token=02e9b4c7-ccae-475d-9f65-7c88dec477c0",
+        "https://firebasestorage.googleapis.com/v0/b/cinemaec-fc79d.appspot.com/o/cinemaec%2FPelicula_10%2F1724444852822_stills.jpg?alt=media&token=1c1edf3c-b6d0-46ee-a4cb-7fb305215e79",
+        "https://firebasestorage.googleapis.com/v0/b/cinemaec-fc79d.appspot.com/o/cinemaec%2FPelicula_10%2F1724444852821_stills.jpg?alt=media&token=02e9b4c7-ccae-475d-9f65-7c88dec477c0"
+      ],
+      "storyLine": "sadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsa",
+      "sinopsis": "sadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsasadsa",
+      "feactureFilm": "Largometraje",
+      "time": 43,
+      "genre": ["Comedia", "Drama"],
+      "year": 2020,
+      "country": "Ecuador",
+      "language": ["Ingles"],
+      "subtitles": ["espanol"],
+      "target": "+12 años",
+      "animation": false,
+      "festivals": ["premio 2"],
+      "awards": ["PRemio1"],
+      "reaInformation": {
+        "available": true,
+        "expiration": "2024-08-31T20:23:47.506Z",
+        "territoryLicense": ["Nacional"]
+      },
+      "channels": [
+        {
+          "url": "sadasd.csad",
+          "id": "66c8f0b6dc1f6aeac4342883"
+        }
+      ],
+      "contact": {
+        "name": "Attis",
+        "phone": "0987654567",
+        "mail": "sdasd@dasda.com"
+      },
+      "created": "2024-08-23T20:27:29.022Z",
+      "__v": 0
+    }
+  ]
+}

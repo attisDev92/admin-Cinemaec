@@ -13,6 +13,7 @@ import ReaRoutes from './Routes/ReaRoutes'
 import UsersRoutes from './Routes/UsersRoutes'
 import ProtectedRoute from './Routes/ProtectRoute'
 import styles from './styles/App.module.css'
+import Loader from './components/Loader/Loader'
 import { getInitialMovies } from './redux/moviesReducer'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
 
   useEffect(() => {
     const loggedAdminJSON = window.localStorage.getItem('adminCinemaec')
+
     if (loggedAdminJSON) {
       const admin = JSON.parse(loggedAdminJSON)
       dispatch(setAdmin(admin))
@@ -31,7 +33,7 @@ function App() {
   }, [dispatch])
 
   if (loading) {
-    return <div>Cargando...</div>
+    return <Loader isActive={true} />
   }
 
   return (

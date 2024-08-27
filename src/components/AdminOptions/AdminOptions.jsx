@@ -22,11 +22,7 @@ function TabPanel(props) {
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </div>
   )
 }
@@ -75,7 +71,7 @@ const AdminOptions = () => {
           <List>
             {menuItems.movies.map((item, i) => (
               <MenuButton
-                id={i}
+                key={i}
                 name={item.name}
                 url={item.url}
                 Icon={item.icon}
@@ -93,7 +89,7 @@ const AdminOptions = () => {
           <List>
             {menuItems.rea.map((item, i) => (
               <MenuButton
-                id={i}
+                key={i}
                 name={item.name}
                 url={item.url}
                 Icon={item.icon}
@@ -111,7 +107,7 @@ const AdminOptions = () => {
           <List>
             {menuItems.users.map((item, i) => (
               <MenuButton
-                id={i}
+                key={i}
                 name={item.name}
                 url={item.url}
                 Icon={item.icon}

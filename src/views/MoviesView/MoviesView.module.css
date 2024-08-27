@@ -1,0 +1,7 @@
+.movie__card {
+  padding: 2rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+}

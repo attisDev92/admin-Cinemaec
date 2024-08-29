@@ -23,7 +23,7 @@ const InfoRea = ({ reaInformation }) => {
           </ul>
         </>
       ) : (
-        'La obra no está disponible en en el Banco de Contenidos del IFCI'
+        <p>La obra no está disponible en en el Banco de Contenidos del IFCI'</p>
       )}
     </>
   )

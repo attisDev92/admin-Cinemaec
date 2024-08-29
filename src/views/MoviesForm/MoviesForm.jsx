@@ -1,130 +1,152 @@
-import { Button, TextField } from '@mui/material'
 import { useField } from '../../hooks/useField'
 import { useState } from 'react'
-import styles from './MoviesForm.module.css'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import AddInputForm from './components/AddInputForm'
 import SelectInputForm from './components/SelectInputForm'
 import DateInput from './components/DateInput'
-import dayjs from 'dayjs'
-import AddMovieChannels from './components/addChannelsMovie'
-import UploadFile from './components/inputUploadFile'
+import AddMovieChannels from './components/AddChannelsMovie'
 import { createNewMovie } from '../../redux/moviesReducer'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import Loader from '../../components/Loader/Loader'
+import InputText from './components/InputText'
+import TechnicalTeamInput from './components/TechnicalTeamInput'
+import TechnicalTeam from '../MoviesView/components/TechnicalTeam'
+import SelectInputCountry from './components/SelectInputCountry'
+import SelectInputLanguages from './components/SelectInputLanguages'
+import SelectMultipleChoice from './components/SelectMultipleChoice'
+import Channels from '../MoviesView/components/Channels'
+import dayjs from 'dayjs'
+import {
+  validateTwoNames,
+  validateMinLength,
+  validateTitle,
+  validateUrl,
+  validateMinNumber,
+  validatePhoneNumber,
+  validateMail,
+} from '../../utils/validationInputs'
+import { Button, TextField } from '@mui/material'
+import styles from './MoviesForm.module.css'
 
 const MoviesForm = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [isLoader, setIsLoader] = useState(false)
+
   const title = useField()
   const director = useField()
-  const [screenplayers, setScreenplayers] = useState([])
+  const productionCompany = useField()
   const storyLine = useField()
-  const sinopsis = useField()
-  const [feactureFilm, setFeactureFilm] = useState('')
-  const time = useField('number')
-  const [genre, setGenre] = useState([])
-  const year = useField('number')
-  const country = useField()
-  const [language, setLenguages] = useState([])
-  const [subtitles, setSubtitles] = useState([])
-  const [target, setTarget] = useState('')
-  const [animation, setAnimation] = useState('')
+  const plot = useField()
+  const trailer = useField()
+  const [technicalTeam, setTechnicalTeam] = useState([])
+  const [cast, setCast] = useState([])
+  const runTime = useField('number', 0)
+  const realeseYear = useField('number', 0)
+  const country = useField('select', '')
+  const language = useField('select', [])
+  const subtitles = useField('select', [])
+  const genres = useField('select', '')
+  const subGenres = useField('select', [])
+  const target = useField('select', '')
   const [festivals, setFestivals] = useState([])
   const [awards, setAwards] = useState([])
-  const [availableREA, setAvailableREA] = useState('')
+  const [funding, setFunding] = useState([])
+  const availableRea = useField('select', 'No')
   const [expirationRea, setExpirationRea] = useState(dayjs())
-  const [reaChannels, setReaChannels] = useState([])
+  const reaChannels = useField('select', [])
   const [movieChannels, setMovieChannels] = useState([])
   const contactName = useField()
+  const contactRole = useField()
   const contactPhone = useField('tel')
   const contactMail = useField('email')
-  const trailer = useField()
-  const [poster, setPoster] = useState(null)
-  const [stills, setStills] = useState([])
 
   const handleSubmitMovie = e => {
     setIsLoader(true)
     e.preventDefault()
+
     const newMovie = {
-      title: title.input.value,
-      director: director.input.value,
-      screenplayers,
-      storyLine: storyLine.input.value,
-      sinopsis: sinopsis.input.value,
-      feactureFilm,
-      time: time.input.value,
-      genre,
-      year: year.input.value,
-      country: country.input.value,
-      language,
-      subtitles,
-      target,
-      animation: animation === 'Sí' ? true : false,
+      title: title.value,
+      director: director.value,
+      productionCompany: productionCompany.value,
+      storyLine: storyLine.value,
+      plot: plot.value,
+      trailer: trailer.value,
+      technicalTeam,
+      cast,
+      runTime: runTime.value,
+      realeseYear: realeseYear.value,
+      country: country.value,
+      language: language.value,
+      subtitles: subtitles.value,
+      genre: genres.value,
+      sub_genre: subGenres.value,
+      target: target.value,
       festivals,
       awards,
-      reaInformation: {
-        available: availableREA === 'Sí' ? true : false,
-        expiration: expirationRea ? expirationRea.toISOString() : null,
-        territoryLicense: reaChannels ? reaChannels : [],
-      },
+      funding,
+      reaInformation:
+        availableRea === 'Sí'
+          ? {
+              available: true,
+              expiration: expirationRea.toDate(),
+              territoryLicense: reaChannels.value,
+            }
+          : {
+              available: false,
+            },
       channels: movieChannels,
       contact: {
-        name: contactName.input.value,
-        phone: contactPhone.input.value,
-        mail: contactMail.input.value,
+        name: contactName,
+        role: contactRole,
+        phone: contactPhone,
+        mail: contactMail,
       },
-      trailer: trailer.input.value,
-      poster,
-      stills,
     }
 
     dispatch(createNewMovie(newMovie))
       .then(() => {
         setIsLoader(false)
-        window.alert('Se creo una nueva película')
         navigate('/movies/list')
       })
-      .cathc()
+      .cathc(() => {
+        setIsLoader(false)
+      })
   }
 
   return (
     <>
       <Loader isActive={isLoader} />
-      <form
-        className={styles.movies__form}
-        onSubmit={handleSubmitMovie}
-        encType='multipart/form-data'
-      >
+      <form className={styles.movies__form} onSubmit={handleSubmitMovie}>
         <fieldset>
-          <TextField
-            id='title'
-            label='Nombre de la obra'
-            variant='standard'
-            required
-            inputProps={{ minLength: 1 }}
-            fullWidth
-            {...title.input}
+          <InputText
+            name='title'
+            label='Nombre de la película'
+            required={true}
+            fullWidth={true}
+            inputProps={{ ...title.input, minLength: 1 }}
+            validate={validateTitle}
           />
         </fieldset>
         <fieldset>
-          <TextField
-            id='director'
-            label='Director'
-            variant='standard'
-            inputProps={{ minLength: 5 }}
-            required
-            {...director.input}
+          <InputText
+            name='director'
+            label='Director (nombre y apellido)'
+            required={true}
+            fullWidth={true}
+            inputProps={{ ...director.input, mincharts: 5 }}
+            validate={validateTwoNames}
           />
-        </fieldset>
-        <fieldset>
-          <AddInputForm
-            name='screenplayers'
-            placeholder='Agregar guionista'
-            nameList='Guionista/s'
-            inputs={screenplayers}
-            setInputs={setScreenplayers}
+          <InputText
+            name='productionCompany'
+            label='Nombre de la casa productora'
+            required={false}
+            fullWidth={true}
+            inputProps={{
+              ...productionCompany.input,
+              mincharts: 5,
+            }}
+            validate={validateMinLength}
           />
         </fieldset>
         <fieldset>
@@ -133,157 +155,200 @@ const MoviesForm = () => {
             label='Storyline'
             variant='standard'
             required
-            inputProps={{ maxLength: 150, minLength: 40 }}
-            helperText={`${storyLine.input.value.length}/ min${40}, max${150}`}
+            inputProps={{ maxLength: 150, minLength: 50 }}
+            helperText={`${storyLine.value.length} / min: ${50}, max: ${150}`}
             multiline
             rows={4}
             fullWidth
             {...storyLine.input}
           />
           <TextField
-            id='sinopsis'
+            id='plot'
             label='Sinopsis'
             variant='standard'
             required
             inputProps={{ maxLength: 500, minLength: 100 }}
-            helperText={`${sinopsis.input.value.length}/ min: ${150}, max: ${500}`}
+            helperText={`${plot.value.length} / min: ${150}, max: ${500}`}
             multiline
             rows={4}
             fullWidth
-            {...sinopsis.input}
+            {...plot.input}
+          />
+        </fieldset>
+        <fieldset>
+          <InputText
+            name='trailer'
+            label='Link de Trailer o teaser de la obra'
+            required={false}
+            fullWidth={true}
+            inputProps={{
+              ...trailer.input,
+            }}
+            validate={validateUrl}
+          />
+        </fieldset>
+        <p>Agrega personas del equipo técnico</p>
+        <fieldset>
+          <TechnicalTeamInput
+            technicalTeam={technicalTeam}
+            setTechnicalTeam={setTechnicalTeam}
+          />
+        </fieldset>
+        <TechnicalTeam team={technicalTeam} />
+        <p>Agregar los nombres del reparto:</p>
+        <fieldset>
+          <AddInputForm
+            name='cast'
+            label='Agregar nombre y apellido'
+            nameList='Reparto'
+            array={cast}
+            setArray={setCast}
+            validate={validateTwoNames}
+          />
+        </fieldset>
+        <p>Ficha técnica</p>
+        <fieldset>
+          <InputText
+            name='runTime'
+            label='Duración (minutos)'
+            required={true}
+            inputProps={{ ...runTime.input, min: 1 }}
+            fullWidth={true}
+            validate={validateMinNumber}
+          />
+          <InputText
+            name='realeseYear'
+            label='Año de estreno'
+            required={true}
+            inputProps={{ ...realeseYear.input, min: 1900 }}
+            fullWidth={true}
+            validate={validateMinNumber}
+          />
+          <SelectInputCountry country={country} />
+        </fieldset>
+        <fieldset>
+          <SelectInputLanguages
+            inputProps={language.input}
+            name='language'
+            label='Idioma'
+          />
+          <SelectInputLanguages
+            inputProps={subtitles.input}
+            name='subtitles'
+            label='Subtítulos'
           />
         </fieldset>
         <fieldset>
           <SelectInputForm
-            name='feactureFilm'
-            placeholer='Duración'
-            options={['Largometraje', 'Cortometraje']}
-            value={feactureFilm}
-            setInputValue={setFeactureFilm}
-          />
-          <TextField
-            id='time'
-            label='Duración (minutos)'
-            variant='standard'
-            required
-            inputProps={{ min: 1 }}
-            fullWidth
-            {...time.input}
-          />
-          <TextField
-            id='year'
-            label='Año'
-            variant='standard'
-            required
-            inputProps={{ min: 1900 }}
-            fullWidth
-            {...year.input}
-          />
-        </fieldset>
-        <fieldset>
-          <TextField
-            id='country'
-            label='País'
-            variant='standard'
-            required
-            inputProps={{ minLength: 5 }}
-            {...country.input}
-          />
-
-          <AddInputForm
             name='genre'
-            placeholder='Agregar genero'
-            nameList='Géneros'
-            inputs={genre}
-            setInputs={setGenre}
+            label='Genero'
+            required={true}
+            options={['Ficción', 'Documental']}
+            inputProps={genres.input}
           />
-        </fieldset>
-        <fieldset>
-          <AddInputForm
-            name='language'
-            placeholder='Agregar idioma'
-            nameList='Idiomas'
-            inputs={language}
-            setInputs={setLenguages}
+          <SelectMultipleChoice
+            name='sub-genre'
+            label='Sub-genero'
+            required={true}
+            inputProps={subGenres.input}
+            items={[
+              'Acción',
+              'Animación',
+              'Aventuras',
+              'Bélico',
+              'Biográfico',
+              'Ciencia Ficción',
+              'Científico',
+              'Comedia',
+              'Deportivo',
+              'Drama',
+              'Educativo',
+              'Etnográfico',
+              'Experimental',
+              'Fantástico',
+              'Histórico',
+              'Investigación Periodística',
+              'Medioambiente',
+              'Musical',
+              'Policial',
+              'Político Social',
+              'Romántico',
+              'Suspenso',
+              'Terror',
+              'Viajes',
+              'Familiar',
+            ]}
           />
-        </fieldset>
-        <fieldset>
-          <AddInputForm
-            name='subtitles'
-            placeholder='Agregar subtítulos'
-            nameList='Subtítulos'
-            inputs={subtitles}
-            setInputs={setSubtitles}
+          <SelectInputForm
+            name='target'
+            label='Clasificación'
+            required={true}
+            options={[
+              'Todo público',
+              'Infantil',
+              '-12 bajo supervisión',
+              '+12 años',
+              '+15 años',
+              '+18 años',
+            ]}
+            inputProps={target.input}
           />
         </fieldset>
         <fieldset>
           <AddInputForm
             name='awards'
-            placeholder='Agregar premio'
+            label='Agregar premio'
             nameList='Premios'
-            inputs={awards}
-            setInputs={setAwards}
+            array={awards}
+            setArray={setAwards}
+            fullWidth={false}
           />
         </fieldset>
         <fieldset>
           <AddInputForm
             name='festivals'
-            placeholder='Agregar festivales'
+            label='Agregar festivales'
             nameList='Festivales'
-            inputs={festivals}
-            setInputs={setFestivals}
+            array={festivals}
+            setArray={setFestivals}
+            fullWidth={false}
           />
         </fieldset>
         <fieldset>
-          <SelectInputForm
-            name='target'
-            placeholer='Clasificación'
-            options={[
-              'Todo público',
-              'Infantil',
-              '+12 años',
-              '+15 años',
-              '+18 años',
-            ]}
-            value={target}
-            setInputValue={setTarget}
-          />
-          <SelectInputForm
-            name='animation'
-            placeholer='Animación'
-            options={['Sí', 'No']}
-            value={animation}
-            setInputValue={setAnimation}
-          />
-          <SelectInputForm
-            name='availableREA'
-            placeholer='disponible para REA'
-            options={['Sí', 'No']}
-            value={availableREA}
-            setInputValue={setAvailableREA}
+          <AddInputForm
+            name='funding'
+            label='Agregar fondos recibidos'
+            nameList='Fondos recibidos'
+            array={funding}
+            setArray={setFunding}
+            fullWidth={false}
           />
         </fieldset>
-        {availableREA === 'Sí' && (
-          <>
-            <p>Información para obras que pertenecen al Banco de Contenidos:</p>
-            <fieldset>
-              <AddInputForm
-                name='rea-territory'
-                placeholder='Agregar canal de exhibición'
-                nameList='Canales permitidos'
-                inputs={reaChannels}
-                setInputs={setReaChannels}
-              />
-            </fieldset>
-            <fieldset>
-              <DateInput
-                placeholder='Expiración REA'
-                setValue={setExpirationRea}
-                value={expirationRea}
-                disablePast={true}
-              />
-            </fieldset>
-          </>
+        <fieldset>
+          <p>Información para obras que pertenecen al Banco de Contenidos:</p>
+          <SelectInputForm
+            name='availableREA'
+            label='disponible para REA'
+            options={['Sí', 'No']}
+            required={true}
+            inputProps={availableRea.input}
+          />
+        </fieldset>
+        {availableRea.value === 'Sí' && (
+          <fieldset>
+            <SelectMultipleChoice
+              name='rea-territory'
+              label='Canales de exhibición'
+              items={['Nacional', 'Internacional', 'Retina Latina']}
+              inputProps={reaChannels.input}
+            />
+            <DateInput
+              placeholder='Expiración REA'
+              setValue={setExpirationRea}
+              value={expirationRea}
+              disablePast={true}
+            />
+          </fieldset>
         )}
         <p>Plataformas donde se encuentra disponible al público la obra:</p>
         <fieldset>
@@ -292,59 +357,45 @@ const MoviesForm = () => {
             setPlataforms={setMovieChannels}
           />
         </fieldset>
+        <Channels channels={movieChannels} />
         <p>Datos de contacto del titular, distribuidor o agente de ventas:</p>
         <fieldset>
-          <TextField
-            id='contact-name'
+          <InputText
+            name='contact-name'
             label='Nombre de Contacto'
-            variant='standard'
-            required
-            fullWidth
-            {...contactName.input}
+            required={true}
+            fullWidth={true}
+            inputProps={contactName.input}
+            validate={validateTwoNames}
           />
-          <TextField
+          <InputText
+            name='contact-role'
+            label='Cargo del Contacto'
+            required={true}
+            fullWidth={true}
+            inputProps={{ ...contactRole.input, mincharts: 1 }}
+            validate={validateMinLength}
+          />
+        </fieldset>
+        <fieldset>
+          <InputText
             id='contact-phone'
             label='Teléfono de contacto'
-            variant='standard'
-            required
-            fullWidth
-            {...contactPhone.input}
+            required={true}
+            fullWidth={true}
+            inputProps={contactPhone.input}
+            validate={validatePhoneNumber}
           />
-          <TextField
+          <InputText
             id='contact-mail'
             label='Email de contacto'
-            required
-            variant='standard'
-            fullWidth
-            {...contactMail.input}
+            required={true}
+            fullWidth={true}
+            inputProps={contactMail.input}
+            validate={validateMail}
           />
         </fieldset>
-        <p>Link del trailer o teaser de la obra:</p>
-        <fieldset>
-          <TextField
-            id='trailer'
-            label='Link de Trailer'
-            variant='standard'
-            required
-            inputProps={{ minLength: 5 }}
-            {...trailer.input}
-          />
-        </fieldset>
-        <p>Subir afiche y hasta 5 fotogramas (máximo 5mb por archivo):</p>
-        <fieldset>
-          <UploadFile
-            label={'Subir Afiche'}
-            setFile={setPoster}
-            limitImages={1}
-          />
-        </fieldset>
-        <fieldset>
-          <UploadFile
-            label={'Subir Fotogramas'}
-            setFile={setStills}
-            limitImages={5}
-          />
-        </fieldset>
+
         <Button type='submit' variant='outlined'>
           Crear nueva película
         </Button>

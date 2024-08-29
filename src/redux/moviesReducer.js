@@ -41,23 +41,7 @@ export const getInitialMovies = () => {
 export const createNewMovie = newMovie => {
   return async dispatch => {
     try {
-      const formData = new FormData()
-
-      for (const [key, value] of Object.entries(newMovie)) {
-        if (key === 'poster') {
-          formData.append(key, value)
-        } else if (key === 'stills' && Array.isArray(value)) {
-          value.forEach(item => formData.append(key, item))
-        } else if (Array.isArray(value)) {
-          formData.append(key, JSON.stringify(value))
-        } else if (typeof value === 'object' && value !== null) {
-          formData.append(key, JSON.stringify(value))
-        } else {
-          formData.append(key, value)
-        }
-      }
-
-      const response = await createMovie(formData)
+      const response = await createMovie(newMovie)
       dispatch(addNewMovie(response))
     } catch (error) {
       console.error(error)

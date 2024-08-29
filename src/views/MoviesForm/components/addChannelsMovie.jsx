@@ -2,6 +2,8 @@ import { TextField, Button } from '@mui/material'
 import { useField } from '../../../hooks/useField'
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../../../redux/notificationReducer'
+import InputText from './InputText'
+import { validateMinLength, validateUrl } from '../../../utils/validationInputs'
 
 const AddMovieChannels = ({ plataforms, setPlataforms }) => {
   const plataform = useField()
@@ -29,32 +31,24 @@ const AddMovieChannels = ({ plataforms, setPlataforms }) => {
 
   return (
     <>
-      <TextField
-        id='plataform'
+      <InputText
+        name='plataform'
         label='Plataforma'
-        variant='standard'
-        inputProps={{ minLength: 5 }}
-        {...plataform.input}
+        fullWidth={true}
+        inputProps={{ ...plataform.input, minLength: 5, mincharts: 5 }}
+        validate={validateMinLength}
       />
-      <TextField
-        id='link'
+
+      <InputText
+        name='link'
         label='Link'
-        variant='standard'
-        inputProps={{ minLength: 5 }}
-        type='url'
-        {...url.input}
+        fullWidth={true}
+        inputProps={url.input}
+        validate={validateUrl}
       />
       <Button onClick={addValue} variant='outlined'>
         Agregar
       </Button>
-      <ul>
-        <p>Plataformas:</p>
-        {plataforms.map((plataform, i) => (
-          <li key={i + 1}>
-            {plataform.plataform}: {plataform.url}{' '}
-          </li>
-        ))}
-      </ul>
     </>
   )
 }

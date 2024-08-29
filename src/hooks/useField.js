@@ -17,5 +17,6 @@ export const useField = (type = 'text', initialValue = '') => {
       value,
       onChange,
     },
+    value,
   }
 }

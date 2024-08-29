@@ -17,7 +17,7 @@ const TechnicalTeam = ({ team }) => {
               {team.map((member, i) => (
                 <TableRow key={i}>
                   <TableCell>{member.name}</TableCell>
-                  <TableCell>{member.position}</TableCell>
+                  <TableCell>{member.role}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -26,7 +26,7 @@ const TechnicalTeam = ({ team }) => {
           <TableBody>
             <TableRow>
               <TableCell>
-                Aún se registran personas en el equipo técnico
+                Aún no se registran personas en el equipo técnico
               </TableCell>
             </TableRow>
           </TableBody>

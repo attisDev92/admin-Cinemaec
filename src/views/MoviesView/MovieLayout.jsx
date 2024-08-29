@@ -30,21 +30,25 @@ const MovieLayout = () => {
         <h6>Director:</h6>
         <p> {movie.director}</p>
         <h6>Casa productora:</h6>
-        <p></p>
+        <p>{movie.productionCompany}</p>
         <Divider />
         <h6>Storyline:</h6>
         <p>{movie.storyLine}</p>
         <h6>Sinopsis:</h6>
-        <p>{movie.sinopsis}</p>
+        <p>{movie.plot}</p>
         <Divider />
         <PosterMovie poster={movie.poster} />
         <Divider />
         <TechnicalSheet movie={movie} />
         <ImagesStills stills={movie.stills} />
         <Divider />
-        <TechnicalTeam team={movie.team} />
+        <TechnicalTeam team={movie.technicalTeam} />
         <CastTable cast={movie.cast} />
-        <FestivalsList festivals={movie.festivals} awards={movie.awards} />
+        <FestivalsList
+          festivals={movie.festivals}
+          awards={movie.awards}
+          funding={movie.funding}
+        />
         <Divider />
         <Channels channels={movie.channels} />
         <ContactMovie contacts={movie.contacts} />

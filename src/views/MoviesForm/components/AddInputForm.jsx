@@ -1,23 +1,55 @@
-import { TextField, Button } from '@mui/material'
+import { Button } from '@mui/material'
 import { useField } from '../../../hooks/useField'
 import { useDispatch } from 'react-redux'
 import { setNotification } from '../../../redux/notificationReducer'
+import InputText from './InputText'
 
-const AddInputForm = ({ name, placeholder, nameList, inputs, setInputs }) => {
-  const inputValue = useField()
+const AddInputForm = ({
+  name,
+  label,
+  nameList,
+  array,
+  setArray,
+  fullWidth,
+  validate,
+}) => {
+  const fieldValue = useField()
   const dispatch = useDispatch()
 
-  const addValue = () => {
-    if (!inputValue.input.value) {
+  const addValueToArray = () => {
+    if (!fieldValue.value) {
       return dispatch(
         setNotification({
-          message: `El campo ${placeholder} está vacio`,
+          message: `Esta intentando agregar un campo vacio`,
           style: 'error',
         }),
       )
     }
-    setInputs(inputs.concat(inputValue.input.value))
-    inputValue.reset()
+
+    if (validate) {
+      const validateResult = validate(fieldValue.input)
+      if (validateResult.length > 0) {
+        return dispatch(
+          setNotification({
+            message: validateResult,
+            style: 'error',
+          }),
+        )
+      }
+    }
+
+    const valueDuplicate = array.find(value => value === fieldValue.value)
+
+    if (valueDuplicate) {
+      return dispatch(
+        setNotification({
+          message: 'El valor ya se encuentra agregado a la lista',
+          style: 'error',
+        }),
+      )
+    }
+    setArray([...array, fieldValue.value])
+    fieldValue.reset()
   }
 
   const removeValue = indexToRemove => {
@@ -26,28 +58,30 @@ const AddInputForm = ({ name, placeholder, nameList, inputs, setInputs }) => {
 
   return (
     <>
-      <TextField
-        id={name}
-        label={placeholder}
-        variant='standard'
-        {...inputValue.input}
+      <InputText
+        name={name}
+        label={label}
+        fullWidth={fullWidth}
+        inputProps={fieldValue.input}
+        validate={validate}
       />
-      <Button onClick={addValue} variant='outlined'>
+      <Button onClick={addValueToArray} variant='outlined'>
         Agregar
       </Button>
-
-      <p>{nameList}:</p>
-      <ul>
-        {inputs.map((input, i) => (
-          <li
-            key={i + 1}
-            onClick={() => removeValue(i)}
-            style={{ cursor: 'pointer' }}
-          >
-            {input}
-          </li>
-        ))}
-      </ul>
+      <div>
+        <p>{nameList}:</p>
+        <ul>
+          {array.map((value, i) => (
+            <li
+              key={i + 1}
+              onClick={() => removeValue(i)}
+              style={{ cursor: 'pointer' }}
+            >
+              {value}
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   )
 }

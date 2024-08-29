@@ -1,26 +1,15 @@
 import { MenuItem, Select, FormControl, InputLabel } from '@mui/material'
 
-const SelectInputForm = ({
-  name,
-  placeholer,
-  options,
-  setInputValue,
-  value,
-}) => {
-  const handleSelectValue = event => {
-    setInputValue(event.target.value)
-  }
-
+const SelectInputForm = ({ name, label, options, required, inputProps }) => {
   return (
     <FormControl fullWidth>
-      <InputLabel id={`${name}_label`}>{placeholer}</InputLabel>
+      <InputLabel id={`${name}_label`}>{label}</InputLabel>
       <Select
-        labelId={`${name}_`}
+        labelId={`${name}_label`}
         id={name}
-        value={value}
-        label={placeholer}
-        onChange={handleSelectValue}
-        required
+        label={label}
+        required={required}
+        {...inputProps}
       >
         {options.map((option, i) => (
           <MenuItem key={i + 1} value={option}>

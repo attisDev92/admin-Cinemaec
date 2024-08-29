@@ -7,23 +7,23 @@ const TechnicalSheet = ({ movie }) => {
       <Table aria-label='simple table'>
         <TableBody>
           <TableRow>
-            <TableCell>Año:</TableCell>
-            <TableCell>{movie.year}</TableCell>
+            <TableCell>Año de estreno:</TableCell>
+            <TableCell>{movie.realeseYear}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Duración:</TableCell>
             <TableCell>
-              {movie.time} minutos /{' '}
-              {movie.time > 60 ? 'Largometraje' : 'Cortometraje'}
+              {movie.runTime} minutos /{' '}
+              {movie.runTime > 60 ? 'Largometraje' : 'Cortometraje'}
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Formato:</TableCell>
-            <TableCell>Ficción o Documental {movie.animation} </TableCell>
+            <TableCell>Genero:</TableCell>
+            <TableCell> {movie.genre} </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Genero:</TableCell>
-            <TableCell>{movie.genre.join(', ')}</TableCell>
+            <TableCell>Sub - genero:</TableCell>
+            <TableCell>{movie.sub_genre.join(', ')}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>País:</TableCell>
@@ -36,7 +36,7 @@ const TechnicalSheet = ({ movie }) => {
           <TableRow>
             <TableCell>Subtítulos:</TableCell>
             <TableCell>
-              {movie.subtitles
+              {movie.subtitles.length > 0
                 ? movie.subtitles.join(', ')
                 : 'No tiene subtítulos'}
             </TableCell>

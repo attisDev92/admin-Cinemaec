@@ -28,17 +28,6 @@ const TechnicalTeamInput = ({ technicalTeam, setTechnicalTeam }) => {
   const dispatch = useDispatch()
 
   const handleAddTechnicalPerson = () => {
-    const regexTwoNames = /^\w+\s+\w+$/
-    if (!regexTwoNames.test(name.value) || name.value.length > 5) {
-      return dispatch(
-        setNotification({
-          message:
-            'El nombre está incmpleto, debe constar de un nombre y un apellido y tener más de 5 caracteres',
-          style: 'error',
-        }),
-      )
-    }
-
     if (!role.value) {
       return dispatch(
         setNotification({

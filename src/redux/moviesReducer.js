@@ -55,6 +55,13 @@ export const createNewMovie = newMovie => {
   }
 }
 
+export const addFile = newFile => {
+  return async dispatch => {
+    try {
+    } catch (error) {}
+  }
+}
+
 export const deleteMovie = id => {
   return async dispatch => {
     try {

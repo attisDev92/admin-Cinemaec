@@ -52,7 +52,7 @@ const MoviesForm = () => {
   const [festivals, setFestivals] = useState([])
   const [awards, setAwards] = useState([])
   const [funding, setFunding] = useState([])
-  const availableRea = useField('select', 'No')
+  const availableRea = useField('select', '')
   const [expirationRea, setExpirationRea] = useState(dayjs())
   const reaChannels = useField('select', [])
   const [movieChannels, setMovieChannels] = useState([])
@@ -97,17 +97,18 @@ const MoviesForm = () => {
             },
       channels: movieChannels,
       contact: {
-        name: contactName,
-        role: contactRole,
-        phone: contactPhone,
-        mail: contactMail,
+        name: contactName.value,
+        role: contactRole.value,
+        phone: contactPhone.value,
+        mail: contactMail.value,
       },
     }
 
     dispatch(createNewMovie(newMovie))
-      .then(() => {
+      .then(response => {
+        console.log(response)
         setIsLoader(false)
-        navigate('/movies/list')
+        // navigate('/movies/')
       })
       .cathc(() => {
         setIsLoader(false)
@@ -324,8 +325,8 @@ const MoviesForm = () => {
             fullWidth={false}
           />
         </fieldset>
+        <p>Información para obras que pertenecen al Banco de Contenidos:</p>
         <fieldset>
-          <p>Información para obras que pertenecen al Banco de Contenidos:</p>
           <SelectInputForm
             name='availableREA'
             label='disponible para REA'
@@ -335,20 +336,24 @@ const MoviesForm = () => {
           />
         </fieldset>
         {availableRea.value === 'Sí' && (
-          <fieldset>
-            <SelectMultipleChoice
-              name='rea-territory'
-              label='Canales de exhibición'
-              items={['Nacional', 'Internacional', 'Retina Latina']}
-              inputProps={reaChannels.input}
-            />
-            <DateInput
-              placeholder='Expiración REA'
-              setValue={setExpirationRea}
-              value={expirationRea}
-              disablePast={true}
-            />
-          </fieldset>
+          <>
+            <fieldset>
+              <SelectMultipleChoice
+                name='rea-territory'
+                label='Canales de exhibición'
+                items={['Nacional', 'Internacional', 'Retina Latina']}
+                inputProps={reaChannels.input}
+              />
+            </fieldset>
+            <fieldset>
+              <DateInput
+                placeholder='Expiración REA'
+                setValue={setExpirationRea}
+                value={expirationRea}
+                disablePast={true}
+              />
+            </fieldset>
+          </>
         )}
         <p>Plataformas donde se encuentra disponible al público la obra:</p>
         <fieldset>
@@ -363,7 +368,6 @@ const MoviesForm = () => {
           <InputText
             name='contact-name'
             label='Nombre de Contacto'
-            required={true}
             fullWidth={true}
             inputProps={contactName.input}
             validate={validateTwoNames}
@@ -371,7 +375,6 @@ const MoviesForm = () => {
           <InputText
             name='contact-role'
             label='Cargo del Contacto'
-            required={true}
             fullWidth={true}
             inputProps={{ ...contactRole.input, mincharts: 1 }}
             validate={validateMinLength}
@@ -381,7 +384,6 @@ const MoviesForm = () => {
           <InputText
             id='contact-phone'
             label='Teléfono de contacto'
-            required={true}
             fullWidth={true}
             inputProps={contactPhone.input}
             validate={validatePhoneNumber}
@@ -389,7 +391,6 @@ const MoviesForm = () => {
           <InputText
             id='contact-mail'
             label='Email de contacto'
-            required={true}
             fullWidth={true}
             inputProps={contactMail.input}
             validate={validateMail}

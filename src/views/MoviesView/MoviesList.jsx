@@ -16,7 +16,7 @@ const MoviesList = () => {
   }
 
   const handleEdit = id => {
-    console.log('edit', id)
+    navigate(`/movies/${id}/files`)
   }
 
   const handleDelete = id => {
@@ -60,20 +60,20 @@ const MoviesList = () => {
           <>
             <GridActionsCellItem
               icon={<PreviewIcon />}
-              label='Preview'
+              label='Vista / Edición'
               onClick={() => handleView(id)}
               color='inherit'
             />
             <GridActionsCellItem
               icon={<EditNoteIcon />}
-              label='Edit'
+              label='Editar imagenes'
               className='textPrimary'
               onClick={() => handleEdit(id)}
               color='inherit'
             />
             <GridActionsCellItem
               icon={<DeleteForeverIcon />}
-              label='Delete'
+              label='Borrar'
               onClick={() => handleDelete(id)}
               color='inherit'
             />
@@ -88,8 +88,10 @@ const MoviesList = () => {
       <h2>Catálogo de películas</h2>
       <div style={{ height: 500, width: '100%' }}>
         <DataGrid
+          key={movies.length}
           rows={movies}
           columns={columns}
+          getRowId={row => row.id}
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 10 },

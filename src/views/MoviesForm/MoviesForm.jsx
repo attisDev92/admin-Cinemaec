@@ -2,11 +2,11 @@ import { useField } from '../../hooks/useField'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { createNewMovie } from '../../redux/moviesReducer'
 import AddInputForm from './components/AddInputForm'
 import SelectInputForm from './components/SelectInputForm'
 import DateInput from './components/DateInput'
 import AddMovieChannels from './components/AddChannelsMovie'
-import { createNewMovie } from '../../redux/moviesReducer'
 import Loader from '../../components/Loader/Loader'
 import InputText from './components/InputText'
 import TechnicalTeamInput from './components/TechnicalTeamInput'
@@ -61,7 +61,7 @@ const MoviesForm = () => {
   const contactPhone = useField('tel')
   const contactMail = useField('email')
 
-  const handleSubmitMovie = e => {
+  const handleSubmitMovie = async e => {
     setIsLoader(true)
     e.preventDefault()
 
@@ -104,15 +104,14 @@ const MoviesForm = () => {
       },
     }
 
-    dispatch(createNewMovie(newMovie))
-      .then(response => {
-        console.log(response)
-        setIsLoader(false)
-        // navigate('/movies/')
-      })
-      .cathc(() => {
-        setIsLoader(false)
-      })
+    try {
+      const createdMovie = await dispatch(createNewMovie(newMovie))
+      if (createdMovie && createdMovie.id) {
+        navigate(`/movies/${createdMovie.id}/files`)
+      }
+    } finally {
+      setIsLoader(false)
+    }
   }
 
   return (

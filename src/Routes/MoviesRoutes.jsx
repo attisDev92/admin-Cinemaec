@@ -5,6 +5,7 @@ import AdminOptions from '../components/AdminOptions/AdminOptions'
 import MoviesList from '../views/MoviesView/MoviesList'
 import MoviesForm from '../views/MoviesForm/MoviesForm'
 import MovieLayout from '../views/MoviesView/MovieLayout'
+import MoviesFilesForm from '../views/MoviesForm/MoviesFilesForm'
 
 const MoviesRoutes = () => {
   return (
@@ -12,7 +13,7 @@ const MoviesRoutes = () => {
       <Route path='create' element={<MoviesForm />} />
       <Route path='list' element={<MoviesList />} />
       <Route path=':id' element={<MovieLayout />} />
-      <Route path='edit/:id' element={<BuildingPage />} />
+      <Route path='/:id/files' element={<MoviesFilesForm />} />
       <Route path='' element={<AdminOptions />} />
     </Routes>
   )

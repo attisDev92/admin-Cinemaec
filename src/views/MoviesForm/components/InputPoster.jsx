@@ -77,6 +77,7 @@ const InputPoster = ({ poster, movieId }) => {
       <form onSubmit={handleUploadFile} encType='multipart/form-data'>
         <h4>Afiche</h4>
         <p>Seleccionar archivo:</p>
+        <p>{file ? filename : 'No se ha seleccionado ningún archivo'}</p>
         <Button
           type='file'
           component='label'
@@ -92,7 +93,6 @@ const InputPoster = ({ poster, movieId }) => {
             onChange={handleChangeFile}
           />
         </Button>
-        <p>{file ? filename : 'No se ha seleccionado ningún archivo'}</p>
         <UploadButton loading={loading} success={success} type='submit' />
         <p>Guardar imagen</p>
       </form>

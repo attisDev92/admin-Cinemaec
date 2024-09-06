@@ -6,7 +6,9 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import UploadButton from '../../../components/Buttons/UploadButton'
 import { setNotification } from '../../../redux/notificationReducer'
 import styles from '../MoviesForm.module.css'
-import { Button, ImageList, ImageListItem } from '@mui/material'
+import { Button, ImageList } from '@mui/material'
+import ImagesCardDeleteButton from './ImagesCardDeleteButton'
+import { useNavigate } from 'react-router-dom'
 
 const InputStills = ({ stills, movieId }) => {
   const [loading, setLoading] = useState(false)
@@ -14,6 +16,7 @@ const InputStills = ({ stills, movieId }) => {
   const [filename, setFilename] = useState('')
   const [file, setFile] = useState()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -64,16 +67,15 @@ const InputStills = ({ stills, movieId }) => {
     try {
       await dispatch(addFile(formData))
       setSuccess(true)
-    } catch (error) {
-      console.log(error)
-      setSuccess(false)
     } finally {
       setLoading(false)
     }
   }
 
-  const handleDelete = fileId => {
-    dispatch(deleteFile(fileId, movieId))
+  const handleDeleteImages = fileId => {
+    dispatch(deleteFile(fileId, movieId)).then(() => {
+      navigate(`/movies/${movieId}/files`)
+    })
   }
 
   return (
@@ -85,6 +87,7 @@ const InputStills = ({ stills, movieId }) => {
             ? 'Número máximo de fotogramas, debe eliminar un archivo antes de subir uno nuevo'
             : 'Seleccionar archivo:'}
         </p>
+        <p>{file ? filename : 'No se ha seleccionado ningún archivo'}</p>
         <Button
           type='file'
           component='label'
@@ -101,7 +104,6 @@ const InputStills = ({ stills, movieId }) => {
             onChange={handleChangeFile}
           />
         </Button>
-        <p>{file ? filename : 'No se ha seleccionado ningún archivo'}</p>
         <UploadButton loading={loading} success={success} type='submit' />
         <p>Guardar imagen</p>
       </form>
@@ -109,10 +111,12 @@ const InputStills = ({ stills, movieId }) => {
         {stills.length > 0 ? (
           <ImageList cols={2}>
             {stills.map((item, i) => (
-              <ImageListItem key={i}>
-                <img src={item.url} />
-                <Button onClick={() => handleDelete(item._id)}>Borrar</Button>
-              </ImageListItem>
+              <ImagesCardDeleteButton
+                item={item}
+                movieId={movieId}
+                key={i}
+                deleteImageFunc={handleDeleteImages}
+              />
             ))}
           </ImageList>
         ) : (

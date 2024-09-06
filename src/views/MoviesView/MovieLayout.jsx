@@ -1,6 +1,4 @@
 import { useParams } from 'react-router-dom'
-import { useMovie } from '../../hooks/useMovie'
-import Loader from '../../components/Loader/Loader'
 import { Card, Divider } from '@mui/material'
 import style from './MoviesView.module.css'
 import dayjs from 'dayjs'
@@ -13,14 +11,16 @@ import ContactMovie from './components/ContactMovie'
 import InfoRea from './components/InfoRea'
 import ImagesStills from './components/ImagesStills'
 import PosterMovie from './components/PosterMovie'
+import { useMovie } from '../../hooks/useMovie'
+import Loader from '../../components/Loader/Loader'
 
 const MovieLayout = () => {
   const id = useParams().id
-  const { loading, movie, error } = useMovie(id)
+  const { movie, loading } = useMovie(id)
 
-  if (loading) return <Loader isActive={true} />
-
-  if (error) return <p>Error: {error.message}</p>
+  if (loading) {
+    return <Loader isActive={true} />
+  }
 
   console.log(movie)
   return (

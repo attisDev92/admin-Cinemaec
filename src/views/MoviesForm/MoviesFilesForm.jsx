@@ -1,33 +1,18 @@
-import { useNavigate, useParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { setNotification } from '../../redux/notificationReducer'
-import { useMovie } from '../../hooks/useMovie'
-import Loader from '../../components/Loader/Loader'
+import { useParams } from 'react-router-dom'
 import InputPoster from './components/InputPoster'
 import { Divider } from '@mui/material'
 import InputStills from './components/InputStills'
+import { useMovie } from '../../hooks/useMovie'
+import Loader from '../../components/Loader/Loader'
 
 const MoviesFilesForm = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
   const id = useParams().id
-  const { loading, movie, error } = useMovie(id)
+  const { movie, loading } = useMovie(id)
 
-  if (loading) return <Loader isActive={true} />
-
-  if (error) {
-    dispatch(
-      setNotification({
-        message: 'Error al cargar la película, vuelva a intentarlo',
-        style: 'error',
-      }),
-    )
-    setTimeout(() => {
-      navigate('/')
-    }, 5000)
+  if (loading) {
+    return <Loader isActive={true} />
   }
 
-  console.log(movie)
   return (
     <>
       <h3>{movie.title}</h3>

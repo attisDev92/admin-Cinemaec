@@ -3,6 +3,7 @@ import { setNotification } from './notificationReducer'
 import {
   createMovie,
   destroyMovie,
+  destroyMovieFiles,
   getAllMovies,
   sendMovieFiles,
 } from '../services/movies'
@@ -89,7 +90,7 @@ export const addFile = formData => {
 export const deleteFile = (fileId, movieId) => {
   return async dispatch => {
     try {
-      const response = await destroyMovie(fileId, movieId)
+      const response = await destroyMovieFiles(fileId, movieId)
       dispatch(updateMovies(response))
     } catch (error) {
       console.error(error)
@@ -106,8 +107,7 @@ export const deleteFile = (fileId, movieId) => {
 export const deleteMovie = id => {
   return async dispatch => {
     try {
-      const response = await destroyMovie(id)
-      console.log(response)
+      await destroyMovie(id)
       dispatch(removeMovie(id))
       dispatch(
         setNotification({

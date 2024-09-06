@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addFile } from '../../../redux/moviesReducer'
-import { Button } from '@mui/material'
+import { Button, Card } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import UploadButton from '../../../components/Buttons/UploadButton'
 import { setNotification } from '../../../redux/notificationReducer'
+import styles from '../MoviesForm.module.css'
 
 const InputPoster = ({ poster, movieId }) => {
   const [loading, setLoading] = useState(false)
@@ -43,7 +44,8 @@ const InputPoster = ({ poster, movieId }) => {
     setFilename(selectedFile.name)
   }
 
-  const handleUploadFile = async () => {
+  const handleUploadFile = async e => {
+    e.preventDefault()
     setLoading(true)
 
     if (!file) {
@@ -71,8 +73,9 @@ const InputPoster = ({ poster, movieId }) => {
   }
 
   return (
-    <div>
+    <div className={styles.inputImages}>
       <form onSubmit={handleUploadFile} encType='multipart/form-data'>
+        <h4>Afiche</h4>
         <p>Seleccionar archivo:</p>
         <Button
           type='file'
@@ -82,7 +85,7 @@ const InputPoster = ({ poster, movieId }) => {
           tabIndex={-1}
           startIcon={<CloudUploadIcon />}
         >
-          Cargar Afiche
+          Seleccionar afiche
           <VisuallyHiddenInput
             type='file'
             accept='.jpg, .png, .webp'
@@ -90,9 +93,18 @@ const InputPoster = ({ poster, movieId }) => {
           />
         </Button>
         <p>{file ? filename : 'No se ha seleccionado ningún archivo'}</p>
-        <p>Guarda y sube la imagen</p>
         <UploadButton loading={loading} success={success} type='submit' />
+        <p>Guardar imagen</p>
       </form>
+      <div className={styles.poster__container}>
+        {poster && poster.url && poster.url.trim() !== '' ? (
+          <Card>
+            <img src={poster.url} />
+          </Card>
+        ) : (
+          <p>No tiene afiche</p>
+        )}
+      </div>
     </div>
   )
 }

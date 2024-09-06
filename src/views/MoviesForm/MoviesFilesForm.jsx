@@ -4,6 +4,8 @@ import { setNotification } from '../../redux/notificationReducer'
 import { useMovie } from '../../hooks/useMovie'
 import Loader from '../../components/Loader/Loader'
 import InputPoster from './components/InputPoster'
+import { Divider } from '@mui/material'
+import InputStills from './components/InputStills'
 
 const MoviesFilesForm = () => {
   const dispatch = useDispatch()
@@ -30,8 +32,9 @@ const MoviesFilesForm = () => {
     <>
       <h3>{movie.title}</h3>
       <h4>Carga de archivos</h4>
-      <h5>Afiche</h5>
       <InputPoster poster={movie.poster} movieId={movie.id} />
+      <Divider />
+      <InputStills stills={movie.stills} movieId={movie.id} />
     </>
   )
 }

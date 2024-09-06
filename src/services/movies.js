@@ -34,13 +34,10 @@ export const sendMovieFiles = async movieFiles => {
   return res.data
 }
 
-export const destryMovieFiles = async (fileId, movieId) => {
-  const movieToUpdate = {
-    movieId,
-  }
+export const destroyMovieFiles = async (fileId, movieId) => {
   const res = await axios.delete(
     `${baseURL}/movies/files/${fileId}`,
-    movieToUpdate,
+    movieId,
     getConfig(),
   )
   return res.data

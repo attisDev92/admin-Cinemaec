@@ -6,7 +6,6 @@ import { createNewMovie } from '../../redux/moviesReducer'
 import AddInputForm from './components/AddInputForm'
 import SelectInputForm from './components/SelectInputForm'
 import DateInput from './components/DateInput'
-import AddMovieChannels from './components/AddChannelsMovie'
 import Loader from '../../components/Loader/Loader'
 import InputText from './components/InputText'
 import TechnicalTeamInput from './components/TechnicalTeamInput'
@@ -27,6 +26,7 @@ import {
 } from '../../utils/validationInputs'
 import { Button, TextField } from '@mui/material'
 import styles from './MoviesForm.module.css'
+import AddMovieChannels from './components/AddMovieChannels'
 
 const MoviesForm = () => {
   const navigate = useNavigate()

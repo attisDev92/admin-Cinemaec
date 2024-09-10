@@ -162,6 +162,8 @@ const MoviesForm = () => {
             fullWidth
             {...storyLine.input}
           />
+        </fieldset>
+        <fieldset>
           <TextField
             id='plot'
             label='Sinopsis'
@@ -342,6 +344,7 @@ const MoviesForm = () => {
                 label='Canales de exhibición'
                 items={['Nacional', 'Internacional', 'Retina Latina']}
                 inputProps={reaChannels.input}
+                required={true}
               />
             </fieldset>
             <fieldset>

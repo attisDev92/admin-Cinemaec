@@ -53,7 +53,7 @@ const AddInputForm = ({
   }
 
   const removeValue = indexToRemove => {
-    setInputs(inputs.filter((_, i) => i !== indexToRemove))
+    setArray(array.filter((_, i) => i !== indexToRemove))
   }
 
   return (

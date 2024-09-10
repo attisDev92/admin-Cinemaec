@@ -6,7 +6,7 @@ export const validateTitle = inputProps => {
 }
 
 export const validateTwoNames = inputProps => {
-  const regex = /^\w+\s+\w+$/
+  const regex = /^\p{L}+(?:\s+\p{L}+)+$/u
   if (!regex.test(inputProps.value)) {
     return 'Debe constar de al menos un nombre y un apellido'
   }
@@ -26,7 +26,7 @@ export const validateMinLength = inputProps => {
 
 export const validateUrl = inputProps => {
   const regex =
-    /^(https?:\/\/)(www\.)?([a-zA-Z0-9-]+\.[a-zA-Z]{2,})(\/[a-zA-Z0-9#?&=._-]*)?$/
+    /^(https?:\/\/)(www\.)?([a-zA-Z0-9-]+\.[a-zA-Z]{2,})(\/[a-zA-Z0-9#?&=._\-\/]*)?$/
 
   if (!regex.test(inputProps.value)) {
     return 'El URL no es un link valido, incluya el link completo ejemplo: (http://...)'

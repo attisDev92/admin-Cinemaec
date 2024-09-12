@@ -86,7 +86,7 @@ const MoviesForm = () => {
       awards,
       funding,
       reaInformation:
-        availableRea === 'Sí'
+        availableRea.value === 'Sí'
           ? {
               available: true,
               expiration: expirationRea.toDate(),

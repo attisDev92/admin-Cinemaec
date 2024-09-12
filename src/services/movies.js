@@ -25,6 +25,20 @@ export const getMovie = async id => {
   return res.data
 }
 
+export const createMovie = async newMovie => {
+  const res = await axios.post(`${baseURL}/movies`, newMovie, getConfig())
+  return res.data
+}
+
+export const updateMovieData = async (movieToUpdate, movieId) => {
+  const res = await axios.put(
+    `${baseURL}/movies/${movieId}`,
+    movieToUpdate,
+    getConfig(),
+  )
+  return res.data
+}
+
 export const sendMovieFiles = async movieFiles => {
   const res = await axios.put(
     `${baseURL}/movies/files`,
@@ -44,11 +58,6 @@ export const destroyMovieFiles = async (fileId, movieId) => {
     dataFiles,
     getConfig(),
   )
-  return res.data
-}
-
-export const createMovie = async newMovie => {
-  const res = await axios.post(`${baseURL}/movies`, newMovie, getConfig())
   return res.data
 }
 

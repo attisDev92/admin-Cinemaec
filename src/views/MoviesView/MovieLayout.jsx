@@ -5,7 +5,6 @@ import dayjs from 'dayjs'
 import CastTable from './components/CastTable'
 import TechnicalSheet from './components/TechnicalSheet'
 import TechnicalTeam from './components/TechnicalTeam'
-import FestivalsList from './components/FestivalsList'
 import Channels from './components/Channels'
 import ContactMovie from './components/ContactMovie'
 import InfoRea from './components/InfoRea'
@@ -13,6 +12,14 @@ import ImagesStills from './components/ImagesStills'
 import PosterMovie from './components/PosterMovie'
 import { useMovie } from '../../hooks/useMovie'
 import Loader from '../../components/Loader/Loader'
+import TextFieldEdit from './components/TextFieldEdit'
+import {
+  validateMinLength,
+  validateTitle,
+  validateTwoNames,
+  validateUrl,
+} from '../../utils/validationInputs'
+import FieldListView from './components/FieldListView'
 
 const MovieLayout = () => {
   const id = useParams().id
@@ -25,34 +32,96 @@ const MovieLayout = () => {
   console.log(movie)
   return (
     <>
-      <h3>{movie.title}</h3>
+      <TextFieldEdit
+        fieldKey={'title'}
+        value={movie.title}
+        movieId={movie.id}
+        verifyFunction={validateTitle}
+        label='Título'
+      />
       <Card className={style.movie__card}>
-        <h6>Director:</h6>
-        <p> {movie.director}</p>
-        <h6>Casa productora:</h6>
-        <p>{movie.productionCompany}</p>
+        <TextFieldEdit
+          fieldKey={'director'}
+          value={movie.director}
+          movieId={movie.id}
+          verifyFunction={validateTwoNames}
+          label='Director'
+        />
+        <TextFieldEdit
+          fieldKey={'productionCompany'}
+          value={movie.productionCompany}
+          movieId={movie.id}
+          verifyFunction={validateMinLength}
+          label='Casa productora'
+        />
         <Divider />
-        <h6>Storyline:</h6>
-        <p>{movie.storyLine}</p>
-        <h6>Sinopsis:</h6>
-        <p>{movie.plot}</p>
+        <TextFieldEdit
+          fieldKey={'storyLine'}
+          value={movie.storyLine}
+          movieId={movie.id}
+          label='Storyline'
+        />
+        <TextFieldEdit
+          fieldKey={'plot'}
+          value={movie.plot}
+          movieId={movie.id}
+          label='Sinopsis'
+        />
+        <Divider />
+        <TextFieldEdit
+          fieldKey={'trailer'}
+          value={movie.trailer}
+          movieId={movie.id}
+          verifyFunction={validateUrl}
+          label='Trailer'
+        />
         <Divider />
         <PosterMovie poster={movie.poster} movieId={movie.id} />
         <Divider />
         <TechnicalSheet movie={movie} />
         <ImagesStills stills={movie.stills} movieId={movie.id} />
         <Divider />
-        <TechnicalTeam team={movie.technicalTeam} />
-        <CastTable cast={movie.cast} />
-        <FestivalsList
-          festivals={movie.festivals}
-          awards={movie.awards}
-          funding={movie.funding}
+        <TechnicalTeam team={movie.technicalTeam} movieId={movie.id} />
+        <Divider />
+        <FieldListView
+          array={movie.cast}
+          movieId={movie.id}
+          fieldKey='cast'
+          label='Reparto registrado:'
+          nameList='Reparto'
+          placeHolder='Agregar reparto'
+        />
+        <Divider />
+        <FieldListView
+          array={movie.festivals}
+          movieId={movie.id}
+          fieldKey='festivals'
+          label='Festivales registrados'
+          nameList='Festivales'
+          placeHolder='Agregar festival'
+        />
+        <Divider />
+        <FieldListView
+          array={movie.awards}
+          movieId={movie.id}
+          fieldKey='awards'
+          label='Premios y reconocimientos recibidos'
+          nameList='Premios y reconocimientos'
+          placeHolder='Agregar premio o reconocimiento'
+        />
+        <Divider />
+        <FieldListView
+          array={movie.funding}
+          movieId={movie.id}
+          fieldKey='funding'
+          label='Financiamiento obtenido'
+          nameList='Financiamiento'
+          placeHolder='Agregar financiamiento'
         />
         <Divider />
         <Channels channels={movie.channels} />
-        <ContactMovie contacts={movie.contacts} />
-        <InfoRea reaInformation={movie.reaInformation} />
+        <ContactMovie contacts={movie.contact} />
+        <InfoRea reaInformation={movie.reaInformation} movieId={movie.id} />
         <Divider />
         <p>
           Fecha de creación del registro:{' '}

@@ -5,6 +5,7 @@ import {
   destroyMovie,
   destroyMovieFiles,
   getAllMovies,
+  updateMovieData,
   sendMovieFiles,
 } from '../services/movies'
 
@@ -63,6 +64,23 @@ export const createNewMovie = newMovie => {
       dispatch(
         setNotification({
           message: 'error al crear una nueva película',
+          style: 'error',
+        }),
+      )
+    }
+  }
+}
+
+export const editMovie = (movieToUpdate, movieId) => {
+  return async dispatch => {
+    try {
+      const response = await updateMovieData(movieToUpdate, movieId)
+      dispatch(updateMovies(response))
+    } catch (error) {
+      console.error(error)
+      dispatch(
+        setNotification({
+          message: 'Error al editar el archivo',
           style: 'error',
         }),
       )

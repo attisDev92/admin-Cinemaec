@@ -1,4 +1,6 @@
 import { Table, TableCell, TableRow, TableBody } from '@mui/material'
+import ActionCellMovieEdit from './ActionCellMovieEdit'
+import { validateMinNumber } from '../../../utils/validationInputs'
 
 const TechnicalSheet = ({ movie }) => {
   return (
@@ -6,17 +8,26 @@ const TechnicalSheet = ({ movie }) => {
       <h6>Ficha técnica:</h6>
       <Table aria-label='simple table'>
         <TableBody>
-          <TableRow>
-            <TableCell>Año de estreno:</TableCell>
-            <TableCell>{movie.realeseYear}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Duración:</TableCell>
-            <TableCell>
-              {movie.runTime} minutos /{' '}
-              {movie.runTime > 60 ? 'Largometraje' : 'Cortometraje'}
-            </TableCell>
-          </TableRow>
+          <ActionCellMovieEdit
+            field='Año de estreno:'
+            value={movie.realeseYear}
+            fieldKey='realeseYear'
+            typeInput='number'
+            movieId={movie.id}
+            resetValue={1900}
+            min={1900}
+            validationFuntion={validateMinNumber}
+          />
+          <ActionCellMovieEdit
+            field='Duración:'
+            value={movie.runTime}
+            fieldKey='runTime'
+            typeInput='number'
+            movieId={movie.id}
+            resetValue={1}
+            min={1}
+            validationFuntion={validateMinNumber}
+          />
           <TableRow>
             <TableCell>Genero:</TableCell>
             <TableCell> {movie.genre} </TableCell>

@@ -15,7 +15,13 @@ const SelectInputCountry = ({ country }) => {
   return (
     <FormControl fullWidth>
       <InputLabel id='country-label'>País</InputLabel>
-      <Select {...country.input} labelId='country-label' required>
+      <Select
+        id='country'
+        {...country.input}
+        labelId='country-label'
+        multiple
+        required
+      >
         {options}
       </Select>
     </FormControl>

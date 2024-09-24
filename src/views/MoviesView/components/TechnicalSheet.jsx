@@ -38,7 +38,7 @@ const TechnicalSheet = ({ movie }) => {
           </TableRow>
           <TableRow>
             <TableCell>País:</TableCell>
-            <TableCell>{movie.country}</TableCell>
+            <TableCell>{movie.country.join(', ')}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Idioma:</TableCell>

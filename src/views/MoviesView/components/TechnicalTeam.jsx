@@ -3,7 +3,7 @@ import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
 const TechnicalTeam = ({ team }) => {
   return (
     <>
-      <h6>Equipo técnico</h6>
+      <h5>Equipo técnico</h5>
       <Table aria-label='simple table'>
         {team && team.length > 0 ? (
           <>

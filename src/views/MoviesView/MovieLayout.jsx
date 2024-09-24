@@ -119,7 +119,7 @@ const MovieLayout = () => {
         />
         <Divider />
         <Channels channels={movie.channels} />
-        <ContactMovie contacts={movie.contact} />
+        <ContactMovie contact={movie.contact} movieId={movie.id} />
         <InfoRea reaInformation={movie.reaInformation} movieId={movie.id} />
         <Divider />
         <p>

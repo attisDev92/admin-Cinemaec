@@ -43,7 +43,7 @@ const MoviesForm = () => {
   const [cast, setCast] = useState([])
   const runTime = useField('number', 0)
   const realeseYear = useField('number', 0)
-  const country = useField('select', '')
+  const country = useField('select', [])
   const language = useField('select', [])
   const subtitles = useField('select', [])
   const genres = useField('select', '')

@@ -118,7 +118,7 @@ const MovieLayout = () => {
           placeHolder='Agregar financiamiento'
         />
         <Divider />
-        <Channels channels={movie.channels} />
+        <Channels channels={movie.channels} movieId={movie.id} />
         <ContactMovie contact={movie.contact} movieId={movie.id} />
         <InfoRea reaInformation={movie.reaInformation} movieId={movie.id} />
         <Divider />

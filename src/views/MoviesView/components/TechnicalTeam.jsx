@@ -17,7 +17,6 @@ import { setNotification } from '../../../redux/notificationReducer'
 import InputText from '../../MoviesForm/components/InputText'
 import { validateTwoNames } from '../../../utils/validationInputs'
 import { editMovie } from '../../../redux/moviesReducer'
-import ActionCellTechnicalTeam from './ActionCellTechnicalTeam'
 
 const technicalRole = [
   'Guionista',
@@ -35,7 +34,7 @@ const TechnicalTeam = ({ team, movieId }) => {
   const [isAddActive, setIsAddActive] = useState(false)
   const name = useField()
   const role = useField()
-  const [currentTeam, setCurrentTeam] = useState([...team])
+
   const handleAddField = () => {
     if (!role.value) {
       return dispatch(
@@ -46,7 +45,7 @@ const TechnicalTeam = ({ team, movieId }) => {
       )
     }
 
-    const duplicatePerson = currentTeam.find(
+    const duplicatePerson = team.find(
       person => person.name === name.value && person.role === role.value,
     )
 
@@ -59,24 +58,24 @@ const TechnicalTeam = ({ team, movieId }) => {
       )
     }
 
-    const newTechnialPerson = {
-      name: name.value,
-      role: role.value,
-    }
-
-    setCurrentTeam([...currentTeam, newTechnialPerson])
-
     const movieToEdit = {
-      technicalTeam: currentTeam,
+      technicalTeam: [...team, { name: name.value, role: role.value }],
     }
-
-    console.log(movieToEdit)
 
     dispatch(editMovie(movieToEdit, movieId)).then(() => {
       setIsAddActive(false)
       name.reset()
       role.reset()
     })
+  }
+
+  const handleDeleteField = id => {
+    const teamToUpdate = team.filter(person => person._id !== id)
+
+    const movieToUpdate = {
+      technicalTeam: teamToUpdate,
+    }
+    dispatch(editMovie(movieToUpdate, movieId))
   }
 
   return (
@@ -122,12 +121,15 @@ const TechnicalTeam = ({ team, movieId }) => {
             </TableHead>
             <TableBody>
               {team.map(member => (
-                <ActionCellTechnicalTeam
-                  key={member._id}
-                  member={member}
-                  technicalTeam={team}
-                  movieId={movieId}
-                />
+                <TableRow key={member._id}>
+                  <TableCell>{member.name}</TableCell>
+                  <TableCell>{member.role}</TableCell>
+                  <TableCell>
+                    <Button onClick={() => handleDeleteField(member._id)}>
+                      Borrar
+                    </Button>
+                  </TableCell>
+                </TableRow>
               ))}
             </TableBody>
           </>

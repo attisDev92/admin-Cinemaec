@@ -28,7 +28,6 @@ const MovieLayout = () => {
     return <Loader isActive={true} />
   }
 
-  console.log(movie)
   return (
     <>
       <TextFieldEdit

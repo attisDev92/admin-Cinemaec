@@ -14,12 +14,19 @@ import { setNotification } from '../../../redux/notificationReducer'
 const technicalRole = [
   'Guionista',
   'Productor/a',
+  'Producción ejecutiva',
+  'Asistente de Dirección',
   'Director/a de fotografía',
+  'Diseño de producción',
   'Director/a de arte',
+  'Diseño de vestuario',
   'Sonido',
+  'Diseño de Sonido',
+  'Música original',
+  'Musicalización',
+  'Dirección de casting',
   'Montaje',
   'Postproducción',
-  'Musicalización',
 ]
 
 const TechnicalTeamInput = ({ technicalTeam, setTechnicalTeam }) => {

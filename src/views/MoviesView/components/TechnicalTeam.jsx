@@ -21,12 +21,19 @@ import { editMovie } from '../../../redux/moviesReducer'
 const technicalRole = [
   'Guionista',
   'Productor/a',
+  'Producción ejecutiva',
+  'Asistente de Dirección',
   'Director/a de fotografía',
+  'Diseño de producción',
   'Director/a de arte',
+  'Diseño de vestuario',
   'Sonido',
+  'Diseño de Sonido',
+  'Música original',
+  'Musicalización',
+  'Dirección de casting',
   'Montaje',
   'Postproducción',
-  'Musicalización',
 ]
 
 const TechnicalTeam = ({ team, movieId }) => {

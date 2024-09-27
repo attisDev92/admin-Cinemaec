@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { login } from '../services/login'
+import { login, verifyLogin } from '../services/login'
 import { setToken } from '../services/movies'
 import { setNotification } from './notificationReducer'
+import { getInitialMovies } from './moviesReducer'
 
 const adminSlice = createSlice({
   name: 'admin',
@@ -39,6 +40,18 @@ export const loginAdmin = ({ username, password }) => {
           style: 'error',
         }),
       )
+    }
+  }
+}
+
+export const verifyLoginToken = admin => {
+  return async dispath => {
+    try {
+      await verifyLogin(admin.adminToken)
+      dispath(setAdmin(admin))
+      dispath(getInitialMovies())
+    } catch (error) {
+      dispath(removeAdmin())
     }
   }
 }

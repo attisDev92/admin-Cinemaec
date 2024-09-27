@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setAdmin } from './redux/adminReducer'
+import { setAdmin, verifyLoginToken } from './redux/adminReducer'
 import Login from './views/Login/Login'
 import Header from './components/Header/Header'
 import Menu from './components/Menu/Menu'
@@ -14,7 +14,6 @@ import UsersRoutes from './Routes/UsersRoutes'
 import ProtectedRoute from './Routes/ProtectRoute'
 import styles from './styles/App.module.css'
 import Loader from './components/Loader/Loader'
-import { getInitialMovies } from './redux/moviesReducer'
 
 function App() {
   const dispatch = useDispatch()
@@ -26,8 +25,7 @@ function App() {
 
     if (loggedAdminJSON) {
       const admin = JSON.parse(loggedAdminJSON)
-      dispatch(setAdmin(admin))
-      dispatch(getInitialMovies())
+      dispatch(verifyLoginToken(admin))
     }
     setLoading(false)
   }, [dispatch])

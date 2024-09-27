@@ -29,13 +29,6 @@ const ActionCellMovieEdit = ({
     })
   }
 
-  const handleDeleteField = () => {
-    const movieToUpdate = {
-      [fieldKey]: resetValue,
-    }
-    dispatch(editMovie(movieToUpdate, movieId))
-  }
-
   return (
     <TableRow>
       <TableCell>{field}</TableCell>
@@ -64,7 +57,6 @@ const ActionCellMovieEdit = ({
         ) : (
           <Button onClick={() => setIsEditable(true)}>Editar</Button>
         )}
-        <Button onClick={handleDeleteField}>Borrar</Button>
       </TableCell>
     </TableRow>
   )

@@ -1,8 +1,22 @@
 import { Table, TableCell, TableRow, TableBody } from '@mui/material'
 import ActionCellMovieEdit from './ActionCellMovieEdit'
 import { validateMinNumber } from '../../../utils/validationInputs'
+import GenreField from './GenreField'
+import SubgenreField from './SubgenreField'
+import { useDispatch } from 'react-redux'
+import { editMovie } from '../../../redux/moviesReducer'
+import CountryField from './CountryField'
+import LanguageField from './LanguageField'
+import SubtitlesField from './SubtitlesField'
+import TargetField from './TargetField'
 
 const TechnicalSheet = ({ movie }) => {
+  const dispatch = useDispatch()
+
+  const handleEditField = movieToUpdate => {
+    dispatch(editMovie(movieToUpdate, movie.id))
+  }
+
   return (
     <>
       <h6>Ficha técnica:</h6>
@@ -28,34 +42,27 @@ const TechnicalSheet = ({ movie }) => {
             min={1}
             validationFuntion={validateMinNumber}
           />
-          <TableRow>
-            <TableCell>Genero:</TableCell>
-            <TableCell> {movie.genre} </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Sub - genero:</TableCell>
-            <TableCell>{movie.sub_genre.join(', ')}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>País:</TableCell>
-            <TableCell>{movie.country.join(', ')}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Idioma:</TableCell>
-            <TableCell>{movie.language.join(', ')}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Subtítulos:</TableCell>
-            <TableCell>
-              {movie.subtitles.length > 0
-                ? movie.subtitles.join(', ')
-                : 'No tiene subtítulos'}
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Clasificación:</TableCell>
-            <TableCell>{movie.target}</TableCell>
-          </TableRow>
+          <GenreField genre={movie.genre} handleEditField={handleEditField} />
+          <SubgenreField
+            subgenre={movie.sub_genre}
+            handleEditField={handleEditField}
+          />
+          <CountryField
+            country={movie.country}
+            handleEditField={handleEditField}
+          />
+          <LanguageField
+            language={movie.language}
+            handleEditField={handleEditField}
+          />
+          <SubtitlesField
+            subtitles={movie.subtitles}
+            handleEditField={handleEditField}
+          />
+          <TargetField
+            target={movie.target}
+            handleEditField={handleEditField}
+          />
         </TableBody>
       </Table>
     </>
